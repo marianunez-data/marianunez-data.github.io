@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Customer Churn Intelligence System — Maria Camila Gonzalez Nuñez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cream:#F7F4EE;
+  --ink:#0D0D0D;
+  --warm:#C8A96E;
+  --warm2:#E8C87A;
+  --muted:#8A8680;
+  --border:#E2DDD5;
+  --white:#FFFFFF;
+  --green:#2A7A4B;
+  --red:#C0392B;
+  --shadow:0 4px 48px rgba(14,14,14,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--cream);color:var(--ink);
+  font-family:'Syne',sans-serif;font-weight:400;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+/* noise only — no grids */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 5rem;background:rgba(247,244,238,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-back{display:flex;align-items:center;gap:.6rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--ink)}
+.nav-back svg{transition:transform .2s}
+.nav-back:hover svg{transform:translateX(-3px)}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-pill{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;background:var(--ink);color:var(--cream);padding:.4rem 1rem;text-decoration:none;transition:background .2s}
+.nav-pill:hover{background:var(--warm)}
+.nav-live-dot{width:6px;height:6px;background:#2A7A4B;border-radius:50%;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+/* HERO — dark, no grid lines */
+.proj-hero{padding:9rem 5rem 5rem;background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
+.hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.proj-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.proj-label::before{content:'';display:block;width:2rem;height:1px;background:var(--warm)}
+.proj-hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6vw,6.5rem);
+  font-weight:300;line-height:1.05;letter-spacing:-.02em;
+  margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp .9s ease .2s both;
+  overflow-wrap:break-word;word-break:break-word;
+}
+.proj-hero-sub{
+  font-size:1rem;color:rgba(247,244,238,.6);
+  max-width:620px;line-height:1.8;margin-bottom:3rem;font-weight:300;
+  opacity:0;animation:fadeUp .9s ease .4s both;
+  overflow-wrap:break-word;
+}
+.hero-links{display:flex;gap:.8rem;flex-wrap:wrap;opacity:0;animation:fadeUp .9s ease .55s both}
+.hero-link-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.6rem;font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:all .25s}
+.hero-link-primary{background:var(--warm);color:var(--ink)}
+.hero-link-primary:hover{background:var(--warm2)}
+.hero-link-ghost{border:1px solid rgba(247,244,238,.2);color:rgba(247,244,238,.6)}
+.hero-link-ghost:hover{border-color:var(--warm);color:var(--warm)}
+
+/* KPI strip — bigger label text */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(247,244,238,.1);margin-top:4rem;opacity:0;animation:fadeUp .9s ease .7s both}
+.kpi-strip-item{padding:2rem 1.5rem;border-right:1px solid rgba(247,244,238,.1);overflow:hidden}
+.kpi-strip-item:last-child{border-right:none}
+.ksi-val{font-family:'DM Mono',monospace;font-size:1.5rem;font-weight:500;display:block;margin-bottom:.4rem;overflow-wrap:break-word}
+.ksi-val.g{color:#4ADE80}
+.ksi-val.gold{color:var(--warm2)}
+.ksi-val.blue{color:#38BDF8}
+/* bigger, readable sublabels */
+.ksi-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,244,238,.55);display:block;margin-bottom:.2rem;overflow-wrap:break-word}
+.ksi-sub{font-family:'DM Mono',monospace;font-size:.6rem;color:rgba(247,244,238,.3);display:block;overflow-wrap:break-word}
+
+/* SECTIONS */
+.content-wrap{max-width:1200px;margin:0 auto}
+section.case-section{padding:6rem 5rem}
+.case-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);margin-bottom:.75rem}
+.case-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3vw,2.8rem);font-weight:300;
+  line-height:1.15;letter-spacing:-.01em;margin-bottom:2.5rem;
+  overflow-wrap:break-word;word-break:break-word;
+}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.body-text{font-size:.93rem;line-height:1.88;color:#5A5855;margin-bottom:1.2rem;font-weight:300;overflow-wrap:break-word}
+
+/* blockquote style for mission */
+.mission-block{
+  border-left:3px solid var(--warm);
+  padding:.8rem 1.5rem;
+  margin:1.5rem 0;
+  background:#FAFAF8;
+}
+.mission-block p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);line-height:1.6}
+.mission-block strong{font-weight:600;font-style:normal}
+
+/* ARCHITECTURE CARD */
+.arch-card{background:var(--white);border:1px solid var(--border);padding:2rem}
+.arch-card-title{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
+.arch-row{display:flex;justify-content:space-between;align-items:flex-start;padding:.65rem 0;border-bottom:1px solid var(--border);gap:1rem}
+.arch-row:last-child{border-bottom:none}
+.arch-key{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--muted);flex-shrink:0}
+.arch-val{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ink);text-align:right;overflow-wrap:break-word}
+
+/* SHAP */
+.shap-grid{display:flex;flex-direction:column;gap:0;border:1px solid var(--border)}
+.shap-row{display:grid;grid-template-columns:160px 1fr auto;align-items:center;padding:1rem 1.4rem;border-bottom:1px solid var(--border);gap:1.2rem;transition:background .2s}
+.shap-row:last-child{border-bottom:none}
+.shap-row:hover{background:#FAFAF8}
+.shap-feature{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--ink)}
+.shap-bar-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.shap-bar{height:100%;background:var(--warm);border-radius:3px;transition:width .8s ease}
+.shap-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);text-align:right;min-width:35px}
+
+/* ROI */
+.roi-section{background:#F2EFE8}
+.roi-board{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);background:var(--white);margin-top:2.5rem}
+.roi-cell{padding:2rem 1.5rem;border-right:1px solid var(--border);text-align:center;overflow:hidden}
+.roi-cell:last-child{border-right:none}
+.roi-num{font-family:'DM Mono',monospace;font-size:1.4rem;font-weight:500;display:block;margin-bottom:.3rem;overflow-wrap:break-word}
+.roi-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block}
+.roi-sub{font-family:'DM Mono',monospace;font-size:.55rem;color:rgba(138,134,128,.6);display:block;margin-top:.2rem}
+
+/* confusion matrix */
+.confusion{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.cf-cell{padding:1.8rem;border:1px solid var(--border);overflow:hidden}
+.cf-cell.tp{border-color:rgba(42,122,75,.3);background:rgba(42,122,75,.04)}
+.cf-cell.tn{border-color:var(--border)}
+.cf-cell.fp{border-color:rgba(192,57,43,.15);background:rgba(192,57,43,.04)}
+.cf-cell.fn{border-color:rgba(192,57,43,.15);background:rgba(192,57,43,.04)}
+.cf-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.cf-val{font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:500;margin-bottom:.3rem;overflow-wrap:break-word}
+.cf-val.pos{color:var(--green)}
+.cf-val.neg{color:var(--red)}
+.cf-desc{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted);line-height:1.6;overflow-wrap:break-word}
+
+/* TESTS — just the grid, no headline */
+.test-section{background:var(--ink);color:var(--cream);padding:6rem 5rem}
+.test-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid rgba(255,255,255,.08)}
+.test-cell{padding:1.8rem 1.4rem;border-right:1px solid rgba(255,255,255,.08);text-align:center;overflow:hidden}
+.test-cell:last-child{border-right:none}
+.test-num{font-family:'DM Mono',monospace;font-size:1.8rem;font-weight:500;color:#4ADE80;display:block;margin-bottom:.3rem}
+.test-name{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:rgba(247,244,238,.6);text-transform:uppercase;display:block;margin-bottom:.3rem}
+.test-file{font-family:'DM Mono',monospace;font-size:.55rem;color:rgba(247,244,238,.3);display:block}
+.test-total{display:flex;justify-content:center;align-items:center;gap:1.5rem;margin-top:1.5rem;padding:1.5rem;background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.12)}
+.test-total-num{font-family:'DM Mono',monospace;font-size:2.5rem;font-weight:500;color:#4ADE80}
+.test-total-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(247,244,238,.5)}
+
+/* STACK — bigger title, no "Technologies Used" */
+.stack-detail{background:var(--cream)}
+.stack-title-row{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:300;line-height:1.1;letter-spacing:-.01em;margin-bottom:2.5rem}
+.stack-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.stack-cat{background:var(--white);border:1px solid var(--border);padding:2rem}
+.sc-title{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.sc-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.sc-tag{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.04em;padding:.3rem .7rem;background:#F7F4EE;border:1px solid var(--border);color:var(--muted)}
+
+/* NEXT */
+.next-section{background:var(--ink);padding:5rem;text-align:center;border-top:1px solid rgba(247,244,238,.06)}
+.next-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,244,238,.3);margin-bottom:1rem}
+.next-title{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--cream);margin-bottom:2rem;line-height:1.1}
+.next-btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2.5rem;background:var(--warm);color:var(--ink);font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .25s}
+.next-btn:hover{background:var(--warm2);transform:translateY(-2px)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  nav,section.case-section,.roi-section,.test-section,.stack-detail,.proj-hero,.next-section{padding-left:2rem;padding-right:2rem}
+  .kpi-strip{grid-template-columns:repeat(3,1fr)}
+  .two-col{grid-template-columns:1fr;gap:3rem}
+  .roi-board,.test-grid{grid-template-columns:repeat(2,1fr)}
+  .stack-cats{grid-template-columns:1fr 1fr}
+  .confusion{grid-template-columns:1fr}
+  /* model+QA two-col → stack vertically */
+  .model-qa-grid{grid-template-columns:1fr!important}
+  .model-qa-right{margin-right:0!important;padding:2rem!important}
+  .model-qa-left{padding-right:0!important}
+}
+@media(max-width:700px){
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .roi-board,.test-grid,.stack-cats{grid-template-columns:1fr}
+}
+
+@media(max-width:480px){
+  .proj-hero{padding:7rem 1.2rem 3rem}
+  .proj-hero-title{font-size:2.2rem}
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .hero-links{flex-direction:column;align-items:flex-start}
+  .hero-link-btn{width:100%;justify-content:center}
+  .two-col{gap:2rem}
+  .roi-board{grid-template-columns:1fr 1fr}
+  .arch-row{flex-direction:column;align-items:flex-start;gap:.3rem}
+  .arch-val{text-align:left}
+  section.case-section{padding:4rem 1.2rem}
+  nav{padding-left:1rem;padding-right:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 5H1M6 1L1 5l5 4"/></svg>
+    Back to Portfolio
+  </a>
+  <div class="nav-right">
+    <div style="display:flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:#2A7A4B">
+      <div class="nav-live-dot"></div>
+      LIVE
+    </div>
+    <a href="https://churn-intelligence.streamlit.app/" target="_blank" class="nav-pill">Live Dashboard ↗</a>
+  </div>
+</nav>
+
+<!-- HERO — dark, no grid texture -->
+<div class="proj-hero">
+  <div class="hero-inner">
+    <div class="proj-label">01 — customer-churn-prediction · Telecom</div>
+    <h1 class="proj-hero-title">Customer Churn Intelligence System</h1>
+    <p class="proj-hero-sub">End-to-end ML pipeline for Interconnect Telecom — from raw CSVs to a deployed, calibrated model with business-validated ROI, SHAP explainability, and a live interactive&nbsp;dashboard.</p>
+    <div class="hero-links">
+      <a href="https://churn-intelligence.streamlit.app/" target="_blank" class="hero-link-btn hero-link-primary">Live Dashboard ↗</a>
+      <a href="https://churn-api-ynok.onrender.com/docs" target="_blank" class="hero-link-btn hero-link-ghost">API Docs ↗</a>
+      <a href="https://github.com/marianunez-data/customer-churn-prediction-telecom" target="_blank" class="hero-link-btn hero-link-ghost">GitHub ↗</a>
+    </div>
+    <!-- KPI strip -->
+    <div class="kpi-strip">
+      <div class="kpi-strip-item">
+        <span class="ksi-val blue">0.9078</span>
+        <span class="ksi-label">Test AUC</span>
+        <span class="ksi-sub">CV: 0.9075 ±0.0057</span>
+      </div>
+      <div class="kpi-strip-item">
+        <span class="ksi-val g">+$1,617</span>
+        <span class="ksi-label">Net ROI</span>
+        <span class="ksi-sub">vs −$12,903 do&#8209;nothing</span>
+      </div>
+      <div class="kpi-strip-item">
+        <span class="ksi-val gold">76.0%</span>
+        <span class="ksi-label">Precision @ θ=0.41</span>
+        <span class="ksi-sub">3 in 4 contacts = real churner</span>
+      </div>
+      <div class="kpi-strip-item">
+        <span class="ksi-val">69.5%</span>
+        <span class="ksi-label">Recall</span>
+        <span class="ksi-sub">Calibrated · Brier 0.1013</span>
+      </div>
+      <div class="kpi-strip-item">
+        <span class="ksi-val g">119</span>
+        <span class="ksi-label">Tests Passing</span>
+        <span class="ksi-sub">CI/CD · GitHub Actions</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section class="case-section" style="background:var(--white)">
+  <div class="content-wrap">
+    <div class="two-col reveal">
+      <div>
+        <div class="case-label">Problem</div>
+        <h2 class="case-title">Reactive vs. Predictive: Solving Revenue Decay in Telecom</h2>
+        <p class="body-text">Interconnect operates in a hyper-competitive telecommunications market. Acquiring a new customer costs 5–7× more than retaining one. With a <strong>26.5% churn rate</strong>, the company faces silent erosion of Monthly Recurring Revenue. This system transforms behavioral data into actionable early-warning signals for Marketing and Retention&nbsp;teams.</p>
+        <div class="mission-block">
+          <p><strong>Mission:</strong> Identify high-risk customers and trigger personalized interventions before churn&nbsp;occurs.</p>
+        </div>
+      </div>
+      <div>
+        <div class="case-label">Solution</div>
+        <h2 class="case-title">A production ML system — from ingestion to live&nbsp;scoring</h2>
+        <p class="body-text">A fully automated pipeline that ingests raw data, engineers features, trains a calibrated LightGBM model, and serves predictions via a FastAPI endpoint, with a Streamlit Cloud dashboard for business users to explore ROI scenarios in real&nbsp;time.</p>
+        <p class="body-text">Every system decision, including the threshold, cost parameters, and capacity constraints, is grounded in business economics rather than just model&nbsp;performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL + QA — two columns: cream left / dark right -->
+<section style="background:var(--cream);padding:6rem 5rem">
+  <div class="content-wrap">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch" class="reveal model-qa-grid">
+
+      <!-- LEFT: Architecture card (cream) -->
+      <div style="padding-right:3rem" class="model-qa-left">
+        <div class="case-label">Model</div>
+        <h2 class="case-title">Architecture &amp;&nbsp;Configuration</h2>
+        <div class="arch-card">
+          <div class="arch-card-title">Model Configuration</div>
+          <div class="arch-row"><span class="arch-key">Algorithm</span><span class="arch-val">LightGBMClassifier</span></div>
+          <div class="arch-row"><span class="arch-key">Tuning</span><span class="arch-val">FLAML AutoML · 180s · seed=42</span></div>
+          <div class="arch-row"><span class="arch-key">Calibration</span><span class="arch-val">Platt Scaling (X_val)</span></div>
+          <div class="arch-row"><span class="arch-key">Imbalance</span><span class="arch-val">is_unbalance=True</span></div>
+          <div class="arch-row"><span class="arch-key">Features</span><span class="arch-val">18 (15 categorical + 3 numeric)</span></div>
+          <div class="arch-row"><span class="arch-key">Threshold θ</span><span class="arch-val">0.41 (OOF sweep, capacity ≤25%)</span></div>
+          <div class="arch-row"><span class="arch-key">Retention Value Vc</span><span class="arch-val">$69</span></div>
+          <div class="arch-row"><span class="arch-key">Intervention Cost Cr</span><span class="arch-val">$20</span></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Quality Assurance (dark) -->
+      <div style="background:var(--ink);padding:3rem;display:flex;flex-direction:column;justify-content:center;margin-right:-5rem" class="model-qa-right">
+        <div class="case-label" style="color:var(--warm)">Quality Assurance</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid rgba(255,255,255,.08);margin-top:1.5rem">
+          <div class="test-cell"><span class="test-num">37</span><span class="test-name">API</span><span class="test-file">test_api.py</span></div>
+          <div class="test-cell"><span class="test-num">35</span><span class="test-name">Predict</span><span class="test-file">test_predict.py</span></div>
+          <div class="test-cell"><span class="test-num">25</span><span class="test-name">Transform</span><span class="test-file">test_transform.py</span></div>
+          <div class="test-cell"><span class="test-num">4</span><span class="test-name">Clean Data</span><span class="test-file">test_clean_data.py</span></div>
+          <div class="test-cell" style="border-right:none"><span class="test-num">6</span><span class="test-name">Modeling</span><span class="test-file">test_modeling_data.py</span></div>
+        </div>
+        <div class="test-total" style="margin-top:1rem">
+          <span class="test-total-num">119</span>
+          <div>
+            <div class="test-total-label">Tests Passing</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.55rem;color:rgba(247,244,238,.3);margin-top:.2rem">pytest · Great Expectations · GitHub Actions CI/CD</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="case-section roi-section">
+  <div class="content-wrap">
+    <div class="reveal">
+      <div class="case-label">Business Impact</div>
+      <h2 class="case-title">ROI Simulator &amp;&nbsp;Financial Outcomes</h2>
+      <p class="body-text" style="max-width:760px">Instead of optimizing for standard metrics like AUC, I engineered a Cost-Sensitive Threshold (θ=0.41) designed to maximize Net ROI. By balancing the cost of intervention (C<sub>r</sub>) against the customer lifetime value (V<sub>c</sub>), the model achieved a +$14,520 revenue swing compared to the do-nothing baseline, all while staying within the company's 25% call center&nbsp;capacity.</p>
+    </div>
+    <div class="roi-board reveal">
+      <div class="roi-cell">
+        <span class="roi-num" style="color:var(--green)">+$1,617</span>
+        <span class="roi-label">Net ROI</span>
+        <span class="roi-sub">Test cohort · 705 customers</span>
+      </div>
+      <div class="roi-cell">
+        <span class="roi-num" style="color:var(--green)">+$6,370</span>
+        <span class="roi-label">Recovered Revenue</span>
+        <span class="roi-sub">130 retained × ($69−$20)</span>
+      </div>
+      <div class="roi-cell">
+        <span class="roi-num" style="color:var(--red)">−$820</span>
+        <span class="roi-label">Cost of Outreach</span>
+        <span class="roi-sub">41 false positives × $20</span>
+      </div>
+      <div class="roi-cell">
+        <span class="roi-num" style="color:var(--red)">−$3,933</span>
+        <span class="roi-label">Unmitigated Revenue Loss</span>
+        <span class="roi-sub">57 false negatives × $69</span>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:3rem">
+      <div class="case-label" style="margin-bottom:.5rem">Expected Value Framework</div>
+      <p style="font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.04em;color:var(--muted);margin-bottom:1.2rem;line-height:1.65">Quantifying the economic cost of classification errors and successes.</p>
+      <div class="confusion">
+        <div class="cf-cell tn">
+          <div class="cf-label">Baseline Stability</div>
+          <div class="cf-val">$0</div>
+          <div class="cf-desc">No action needed · n=477<br>= 477 × $0</div>
+        </div>
+        <div class="cf-cell fp">
+          <div class="cf-label">Outreach Inefficiency</div>
+          <div class="cf-val neg">−$820</div>
+          <div class="cf-desc">Wasted intervention · n=41<br>= 41 × $20 (Cr)</div>
+        </div>
+        <div class="cf-cell fn">
+          <div class="cf-label">Unmitigated Loss</div>
+          <div class="cf-val neg">−$3,933</div>
+          <div class="cf-desc">Missed churner · n=57<br>= 57 × $69 (Vc)</div>
+        </div>
+        <div class="cf-cell tp">
+          <div class="cf-label">Recovered Revenue</div>
+          <div class="cf-val pos">+$6,370</div>
+          <div class="cf-desc">Retained customer · n=130<br>= 130 × ($69−$20)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK — bigger title, no "Technologies Used" subtitle -->
+<section class="case-section stack-detail">
+  <div class="content-wrap">
+    <div class="reveal">
+      <div class="case-label">Tech Stack</div>
+    </div>
+    <div class="stack-cats reveal">
+      <div class="stack-cat">
+        <div class="sc-title">Machine Learning</div>
+        <div class="sc-tags">
+          <span class="sc-tag">LightGBM</span><span class="sc-tag">XGBoost</span>
+          <span class="sc-tag">scikit-learn</span><span class="sc-tag">FLAML AutoML</span>
+          <span class="sc-tag">SHAP</span><span class="sc-tag">Platt Calibration</span>
+          <span class="sc-tag">StratifiedKFold</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="sc-title">Data &amp; ETL</div>
+        <div class="sc-tags">
+          <span class="sc-tag">pandas</span><span class="sc-tag">NumPy</span>
+          <span class="sc-tag">sklearn Pipeline</span><span class="sc-tag">ColumnTransformer</span>
+          <span class="sc-tag">OrdinalEncoder</span><span class="sc-tag">Great Expectations</span>
+          <span class="sc-tag">Parquet</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="sc-title">Deployment &amp; API</div>
+        <div class="sc-tags">
+          <span class="sc-tag">FastAPI</span><span class="sc-tag">Pydantic v2</span>
+          <span class="sc-tag">Uvicorn</span><span class="sc-tag">Docker</span>
+          <span class="sc-tag">Docker Compose</span><span class="sc-tag">Render</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="sc-title">Dashboard &amp; Viz</div>
+        <div class="sc-tags">
+          <span class="sc-tag">Streamlit</span><span class="sc-tag">Plotly</span>
+          <span class="sc-tag">Matplotlib</span><span class="sc-tag">Streamlit Cloud</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="sc-title">Testing &amp; Tracking</div>
+        <div class="sc-tags">
+          <span class="sc-tag">pytest</span><span class="sc-tag">MLflow</span>
+          <span class="sc-tag">GitHub Actions</span><span class="sc-tag">Git</span>
+          <span class="sc-tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="sc-title">API Endpoints</div>
+        <div class="sc-tags">
+          <span class="sc-tag">GET /health</span><span class="sc-tag">GET /model/info</span>
+          <span class="sc-tag">POST /predict</span><span class="sc-tag">POST /predict/batch</span>
+          <span class="sc-tag">GET /customers/top-risk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<div class="next-section">
+  <div class="next-label">Portfolio</div>
+  <h2 class="next-title">More projects coming soon</h2>
+  <a href="index.html" class="next-btn">
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 5H1M6 1L1 5l5 4"/></svg>
+    Back to Portfolio
+  </a>
+</div>
+
+<script>
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.07 });
+revEls.forEach(el => obs.observe(el));
+
+// SHAP bars animate in
+const shapObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.shap-bar').forEach(b => { b.style.width = b.dataset.w || b.style.width; });
+      shapObs.unobserve(e.target);
+    }
+  });
+}, { threshold: .3 });
+const shapGrid = document.querySelector('.shap-grid');
+if (shapGrid) {
+  shapGrid.querySelectorAll('.shap-bar').forEach(b => { b.dataset.w = b.style.width; b.style.width = '0'; });
+  setTimeout(() => shapObs.observe(shapGrid), 100);
+}
+</script>
+</body>
+</html>
