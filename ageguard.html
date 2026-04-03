@@ -72,11 +72,11 @@ section.case-section{padding:6rem 5rem}
   overflow-wrap:break-word;
   word-break:break-word;
   /* Force uniform glyph rendering so numbers don't look smaller than letters */
-  font-variant-numeric:normal;
+  font-variant-numeric:lining-nums tabular-nums;
 }
 
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.body-text{font-size:.93rem;line-height:1.88;color:#5A5855;margin-bottom:1.2rem;font-weight:300;overflow-wrap:break-word}
+.body-text{font-size:.93rem;line-height:1.88;color:#5A5855;margin-bottom:1.2rem;font-weight:300;overflow-wrap:break-word;font-variant-numeric:lining-nums tabular-nums}
 .mission-block{border-left:3px solid var(--warm);padding:.8rem 1.5rem;margin:1.5rem 0;background:#FAFAF8}
 .mission-block p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--ink);line-height:1.6}
 .mission-block strong{font-weight:600;font-style:normal}
@@ -207,9 +207,9 @@ section.case-section{padding:6rem 5rem}
 <!-- HERO -->
 <div class="proj-hero">
   <div class="hero-inner">
-    <div class="proj-label">02 — age-verification · Retail / Computer Vision</div>
+    <div class="proj-label">02 — age-verification · Retail · Computer Vision</div>
     <h1 class="proj-hero-title">AgeGuard AI</h1>
-    <p class="proj-hero-sub">Deep learning-powered age estimation for regulated retail environments. Real-time facial analysis with a three-tier alert system (RED / YELLOW / GREEN) for compliance at point of sale.</p>
+    <p class="proj-hero-sub">Deep learning-powered age estimation for regulated retail environments. Real-time facial analysis with a three-tier alert system for compliance at point of sale.</p>
     <div class="hero-links">
       <a href="https://huggingface.co/spaces/marianunez-data/AgeGuard-AI" target="_blank" class="hero-link-btn hero-link-primary">Live Demo ↗</a>
       <a href="https://ageguard-ai-dashboard.streamlit.app" target="_blank" class="hero-link-btn hero-link-ghost">Dashboard ↗</a>
@@ -261,7 +261,7 @@ section.case-section{padding:6rem 5rem}
       </div>
       <div>
         <div class="case-label">Solution</div>
-        <h2 class="case-title">A real-time compliance layer — from camera to decision in&nbsp;17&nbsp;ms</h2>
+        <h2 class="case-title">A real&#8209;time compliance layer from camera to decision in&nbsp;17&nbsp;ms</h2>
         <p class="body-text">AgeGuard AI deploys a deep learning vision model at point of sale that predicts customer age from a single face image and triggers the appropriate compliance action, instantly, consistently, and at&nbsp;scale.</p>
         <p class="body-text">The three-tier alert system routes every transaction through one of three decision paths. No under-21 customer is ever auto-approved. Supervisors engage only for the ambiguous 21–25 window, eliminating unnecessary friction for the majority of adult&nbsp;customers.</p>
         <div class="alert-tiers">
@@ -342,7 +342,7 @@ section.case-section{padding:6rem 5rem}
     <div class="impact-grid reveal">
       <div class="impact-cell c-green">
         <span class="impact-lbl">Estimated Annual Fines Avoided</span>
-        <span class="impact-num g">$20.000</span>
+        <span class="impact-num g">$20,000</span>
         <p class="impact-desc">Per store, based on 2 average violations per year at $10,000 each. One consistent compliance layer pays for itself in avoided fines&nbsp;alone.</p>
       </div>
       <div class="impact-cell c-gold">
@@ -397,28 +397,28 @@ section.case-section{padding:6rem 5rem}
     <div class="reveal">
       <h2 class="case-title">Compliance <em style="font-style:italic;color:var(--warm)">at Scale</em></h2>
       <div style="width:3rem;height:2px;background:var(--ink);margin:1.5rem 0 2rem"></div>
-      <p class="body-text" style="max-width:740px">By automating the first layer of age verification, AgeGuard AI converts a high-risk, variable human process into a deterministic, auditable compliance layer — operating at 17 ms per transaction with consistent accuracy precisely where it matters most: the 18–25 critical&nbsp;band.</p>
+      <p class="body-text" style="max-width:740px">By automating the first layer of age verification, AgeGuard AI converts a high-risk, variable human process into a deterministic, auditable compliance layer, operating at 17 ms per transaction with consistent accuracy precisely where it matters most: the 18–25 critical&nbsp;band.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin-top:2.5rem" class="reveal">
       <div style="padding:2.5rem 2.2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border)">
         <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">Auto-Approved Transactions</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:#2A7A4B;line-height:1;margin-bottom:1rem">79.7<span style="font-size:.55em">%</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:400;color:#2A7A4B;line-height:1;margin-bottom:1rem">79.7<span style="font-size:.55em">%</span></div>
         <p style="font-size:.82rem;line-height:1.7;color:#5A5855">Adult customers above 25 pass instantly — zero staff intervention. Frictionless experience for the clear majority of&nbsp;shoppers.</p>
       </div>
       <div style="padding:2.5rem 2.2rem;border-bottom:1px solid var(--border)">
         <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">False Accept Rate · T = 25</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--muted);line-height:1;margin-bottom:1rem">12.3<span style="font-size:.55em">%</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:400;color:var(--muted);line-height:1;margin-bottom:1rem">12.3<span style="font-size:.55em">%</span></div>
         <p style="font-size:.82rem;line-height:1.7;color:#5A5855">Down from 28.9% at t = 21. Optimized threshold halves compliance exposure while maintaining customer throughput and checkout&nbsp;speed.</p>
       </div>
       <div style="padding:2.5rem 2.2rem;border-right:1px solid var(--border)">
         <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">Inference Latency · CPU</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:1rem">17<span style="font-size:.55em">ms</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:400;color:var(--ink);line-height:1;margin-bottom:1rem">17<span style="font-size:.55em">ms</span></div>
         <p style="font-size:.82rem;line-height:1.7;color:#5A5855">3× faster than the 50 ms real-time requirement. Zero perceptible latency at POS — no checkout friction introduced by the&nbsp;system.</p>
       </div>
       <div style="padding:2.5rem 2.2rem">
         <div style="font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">MAE · Critical Band 18-25</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--warm);line-height:1;margin-bottom:1rem">4.34<span style="font-size:.55em">y</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:400;color:var(--warm);line-height:1;margin-bottom:1rem">4.34<span style="font-size:.55em">y</span></div>
         <p style="font-size:.82rem;line-height:1.7;color:#5A5855">Outperforms the global MAE of 5.02y in the highest-risk window. Accuracy is greatest exactly where compliance risk is at its&nbsp;peak.</p>
       </div>
     </div>

@@ -71,7 +71,7 @@ h1{
 .story-text h2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:8px;}
 .story-text p{font-size:14px;color:#94A3B8;max-width:700px;line-height:1.7;}
 .story-number{text-align:center;}
-.story-big{font-family:'Fraunces',serif;font-size:52px;font-weight:900;color:#10B981;line-height:1;}
+.story-big{font-family:'Fraunces',serif;font-size:52px;font-weight:900;color:#E53E3E;line-height:1;}
 .story-cap{font-size:12px;color:#94A3B8;margin-top:4px;text-align:center;}
 
 /* ─── MAIN ─── */
@@ -218,8 +218,8 @@ footer{
   <div class="header-tags">
     <span class="tag">7,043 customers analyzed</span>
     <span class="tag">Snapshot: January 2020</span>
-    <span class="tag highlight">Model Accuracy: 90.78%</span>
-    <span class="tag highlight">Net ROI: +$1.617 per cohort</span>
+    <span class="tag highlight">Model AUC: 0.9078</span>
+    <span class="tag highlight">Net ROI: $1,617 per cohort</span>
   </div>
 </header>
 
@@ -230,9 +230,9 @@ footer{
     <p>Every month, 26.5% of customers cancel their service — that's roughly 1 in 4. Without a predictive system, retention teams can only react. This analysis delivers a system that acts first: identifying the highest-risk customers before they churn, so a retention call can save the relationship.</p>
   </div>
   <div class="story-number">
-    <div class="story-big">−$12.903</div>
+    <div class="story-big">$12,903</div>
     <div class="story-cap">Lost per cohort with no action</div>
-    <div style="margin-top:16px;font-size:13px;color:#10B981;font-weight:600">+$1.617 with the predictive model</div>
+    <div style="margin-top:16px;font-size:13px;color:#10B981;font-weight:600">$1,617 with the predictive model</div>
   </div>
 </div>
 
@@ -249,32 +249,32 @@ footer{
     <div class="kpi" style="--kpi-color:#E53E3E">
       <div class="kpi-label">Churn Rate</div>
       <div class="kpi-value" data-count="26.5" data-fmt="pct">0%</div>
-      <div class="kpi-sub">1.869 out of 7.043 customers left</div>
+      <div class="kpi-sub">1,869 out of 7,043 customers left</div>
       <div class="kpi-trend trend-bad">1 in 4 customers</div>
     </div>
     <div class="kpi" style="--kpi-color:#D97706">
       <div class="kpi-label">Potential Loss (4 months)</div>
-      <div class="kpi-value" data-count="556523" data-fmt="usd">$0</div>
-      <div class="kpi-sub">Revenue from churners · $64.76 avg/month</div>
+      <div class="kpi-value" data-count="484146" data-fmt="usd">$0</div>
+      <div class="kpi-sub">1,869 churners × $64.76 ARPU × 4 months</div>
       <div class="kpi-trend trend-bad">Without intervention</div>
     </div>
     <div class="kpi" style="--kpi-color:#2563EB">
-      <div class="kpi-label">Model Accuracy</div>
-      <div class="kpi-value" data-count="90.78" data-fmt="pct">0%</div>
+      <div class="kpi-label">Model AUC</div>
+      <div class="kpi-value" data-count="0.9078" data-fmt="auc">0</div>
       <div class="kpi-sub">Correctly ranks at-risk customers</div>
       <div class="kpi-trend trend-good">Honest test</div>
     </div>
     <div class="kpi" style="--kpi-color:#059669">
       <div class="kpi-label">Net ROI with Model</div>
       <div class="kpi-value" data-count="1617" data-fmt="roi">$0</div>
-      <div class="kpi-sub">vs −$12.903 doing nothing</div>
-      <div class="kpi-trend trend-good">↑ $14.520 improvement</div>
+      <div class="kpi-sub">vs $12,903 doing nothing</div>
+      <div class="kpi-trend trend-good">↑ $14,520 improvement</div>
     </div>
     <div class="kpi" style="--kpi-color:#E53E3E">
       <div class="kpi-label">Missed Churners (FNR)</div>
       <div class="kpi-value" data-count="30.5" data-fmt="pct">0%</div>
       <div class="kpi-sub">Customers flagged "safe" who left</div>
-      <div class="kpi-trend trend-bad">57 customers · −$3.933</div>
+      <div class="kpi-trend trend-bad">57 customers · $3,933</div>
     </div>
   </div>
 
@@ -327,7 +327,7 @@ footer{
       <div class="card-title">Fiber Optic customers — the highest-value segment — churn at 2× the DSL rate</div>
       <div class="chart-wrap" style="height:200px"><canvas id="cInternet"></canvas></div>
       <div class="callout callout-amber">
-        Fiber Optic: <strong>41.9%</strong> churn · DSL: <strong>19.0%</strong>. These are premium customers with higher monthly charges ($89 avg) — their churn creates disproportionate revenue loss. They need differentiated retention.
+        Fiber Optic: <strong>41.9%</strong> churn · DSL: <strong>19.0%</strong>. These are premium customers with higher monthly charges — their churn creates disproportionate revenue loss. They need differentiated retention.
       </div>
     </div>
   </div>
@@ -423,21 +423,21 @@ footer{
   <div class="grid-2 fade-in">
     <div class="card">
       <div class="card-label">Four Scenarios — Same Cohort of 705 Customers</div>
-      <div class="card-title">The predictive model turns a $12.903 loss into a $1.617 gain</div>
+      <div class="card-title">The predictive model turns a $12,903 loss into a $1,617 gain</div>
       <div class="roi-visual">
         <div class="roi-box scenario-bad">
           <div class="roi-scenario">No action</div>
-          <div class="roi-amount">−$12.903</div>
+          <div class="roi-amount">$12,903</div>
           <div class="roi-desc">Do nothing · all churners lost</div>
         </div>
         <div class="roi-box scenario-med">
           <div class="roi-scenario">Default θ=0.50</div>
-          <div class="roi-amount">+$343</div>
+          <div class="roi-amount">$343</div>
           <div class="roi-desc">Standard threshold · 117 retained</div>
         </div>
         <div class="roi-box scenario-good">
           <div class="roi-scenario">Optimized model θ=0.41</div>
-          <div class="roi-amount">+$1.617</div>
+          <div class="roi-amount">$1,617</div>
           <div class="roi-desc">Optimized threshold · 130 retained</div>
         </div>
         <div class="roi-box scenario-best">
@@ -447,11 +447,11 @@ footer{
         </div>
       </div>
       <div class="callout callout-green">
-        <strong>Key insight:</strong> The model does not just predict churn — it optimizes <em>when to intervene</em>. By lowering the decision threshold from 0.50 to 0.41, the system contacts more confirmed churners and generates <strong>$1.274 more</strong> in ROI from the same team.
+        <strong>Key insight:</strong> The model does not just predict churn — it optimizes <em>when to intervene</em>. By lowering the decision threshold from 0.50 to 0.41, the system contacts more confirmed churners and generates <strong>$1,274 more</strong> in ROI from the same team.
       </div>
     </div>
     <div class="card">
-      <div class="card-label">Breakdown of the $1.617 Net ROI</div>
+      <div class="card-label">Breakdown of the $1,617 Net ROI</div>
       <div class="card-title">Every call has a cost. Every retained customer has a value. Here's where the money goes.</div>
       <div class="chart-wrap" style="height:200px"><canvas id="cROI"></canvas></div>
       <div class="callout callout-blue">
@@ -493,8 +493,8 @@ footer{
       <div class="rec-number">04</div>
       
       <div class="rec-title">Senior Citizen Retention Program</div>
-      <div class="rec-body">1.142 senior customers churn at 41.7% vs 23.6% for non-seniors. A dedicated simplified service plan, dedicated support line, or proactive check-in calls would address this segment's specific needs.</div>
-      <div class="rec-impact" style="background:#F0FDF4;color:#059669">1.142 customers at risk</div>
+      <div class="rec-body">1,142 senior customers churn at 41.7% vs 23.6% for non-seniors. A dedicated simplified service plan, dedicated support line, or proactive check-in calls would address this segment's specific needs.</div>
+      <div class="rec-impact" style="background:#F0FDF4;color:#059669">1,142 customers at risk</div>
     </div>
     <div class="rec-card" style="--rc-color:#7C3AED">
       <div class="rec-number">05</div>
@@ -529,8 +529,9 @@ function animateCounter(el){
     const v=val*e;
     let t;
     if(fmt==='pct') t=v.toFixed(1)+'%';
-    else if(fmt==='usd') t='$'+Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    else if(fmt==='roi') t='+$'+Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    else if(fmt==='auc') t=v.toFixed(4);
+    else if(fmt==='usd') t='$'+Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    else if(fmt==='roi') t='$'+Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     else t=v.toFixed(2);
     el.textContent=t;
     if(p<1) requestAnimationFrame(tick);
