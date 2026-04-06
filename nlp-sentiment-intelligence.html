@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>IMDB Sentiment Classifier — NLP Pipeline — Maria Camila Gonzalez Nuñez</title>
+<title>NLP Sentiment Intelligence System — Production Pipeline — Maria Camila Gonzalez Nuñez</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -203,13 +203,13 @@ section.case-section{padding:6rem 5rem}
 <!-- HERO -->
 <div class="proj-hero" style="padding-bottom:0">
   <div class="hero-inner">
-    <div class="proj-label">01 — imdb-sentiment-classifier · NLP</div>
-    <h1 class="proj-hero-title">IMDB Sentiment<br>Classifier</h1>
-    <p class="proj-hero-sub">Production-grade binary sentiment classifier for IMDB movie reviews: comparing Logistic Regression, LightGBM, and DistilBERT with full MLOps pipeline, SHAP explainability, and confidence-based routing.</p>
+    <div class="proj-label">01 — nlp-sentiment-intelligence</div>
+    <h1 class="proj-hero-title">NLP Sentiment<br>Intelligence System</h1>
+    <p class="proj-hero-sub">Production-grade NLP pipeline for binary sentiment classification with calibrated confidence routing, MLflow experiment tracking (24 runs), SHAP explainability, and Evidently AI drift monitoring. Systematic model comparison across F1, AUC, Brier score, and inference cost.</p>
     <div class="hero-links">
       <a href="https://imdb-sentiment-mcgn.streamlit.app/" target="_blank" class="hero-link-btn hero-link-primary">Live Dashboard ↗</a>
       <a href="https://marianunez-data-imdb-sentiment-classifier.hf.space/docs" target="_blank" class="hero-link-btn hero-link-ghost">REST API ↗</a>
-      <a href="https://github.com/marianunez-data/imdb-sentiment-classifier" target="_blank" class="hero-link-btn hero-link-ghost">GitHub ↗</a>
+      <a href="https://github.com/marianunez-data/nlp-sentiment-intelligence" target="_blank" class="hero-link-btn hero-link-ghost">GitHub ↗</a>
     </div>
   </div>
   <div class="kpi-strip">
@@ -228,7 +228,7 @@ section.case-section{padding:6rem 5rem}
       <div>
         <div class="case-label">Problem</div>
         <h2 class="case-title">Classifying Sentiment at Scale with Calibrated Confidence</h2>
-        <p class="body-text">Movie review platforms process thousands of reviews daily. Manual classification is impractical, and uncalibrated models produce binary labels without confidence levels — making it impossible to route uncertain predictions for human review.</p>
+        <p class="body-text">Text-based platforms process thousands of user-generated documents daily. Manual sentiment classification is impractical, and uncalibrated models produce binary labels without confidence levels, making it impossible to route uncertain predictions for human review.</p>
         <p class="body-text">The challenge: build a classifier that not only predicts sentiment accurately, but produces well-calibrated probabilities enabling confidence-based routing in production.</p>
       </div>
       <div>
@@ -311,7 +311,7 @@ section.case-section{padding:6rem 5rem}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="reveal">
       <div style="border:1px solid var(--border);padding:2rem;background:var(--white)">
         <div style="font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm);margin-bottom:.8rem">Linear Separability</div>
-        <p class="body-text" style="margin:0">LR with TF-IDF bigrams outperforms DistilBERT (F1=0.8948 vs 0.8796), confirming sentiment in IMDB is linearly separable in bigram space. Complex models add cost, not accuracy.</p>
+        <p class="body-text" style="margin:0">LR with TF-IDF bigrams outperforms DistilBERT (F1=0.8948 vs 0.8796), confirming sentiment in this corpus is linearly separable in bigram space. Complex models add cost, not accuracy.</p>
       </div>
       <div style="border:1px solid var(--border);padding:2rem;background:var(--white)">
         <div style="font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm);margin-bottom:.8rem">Calibration Over Accuracy</div>
