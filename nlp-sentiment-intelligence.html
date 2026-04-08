@@ -195,7 +195,7 @@ section.case-section{padding:6rem 5rem}
     Back to Portfolio
   </a>
   <div class="nav-right">
-    <a href="https://imdb-sentiment-mcgn.streamlit.app/" target="_blank" class="nav-pill">Live Dashboard ↗</a>
+    <a href="https://nlp-sentiment-mcgn.streamlit.app/" target="_blank" class="nav-pill">Live Dashboard ↗</a>
     <a href="https://marianunez-data-imdb-sentiment-classifier.hf.space/docs" target="_blank" class="nav-pill ghost">API ↗</a>
   </div>
 </nav>
@@ -207,10 +207,20 @@ section.case-section{padding:6rem 5rem}
     <h1 class="proj-hero-title">NLP Sentiment<br>Intelligence System</h1>
     <p class="proj-hero-sub">Production-grade NLP pipeline for binary sentiment classification with calibrated confidence routing, MLflow experiment tracking (24 runs), SHAP explainability, and Evidently AI drift monitoring. Systematic model comparison across F1, AUC, Brier score, and inference cost.</p>
     <div class="hero-links">
-      <a href="https://imdb-sentiment-mcgn.streamlit.app/" target="_blank" class="hero-link-btn hero-link-primary">Live Dashboard ↗</a>
+      <a href="https://nlp-sentiment-mcgn.streamlit.app/" target="_blank" class="hero-link-btn hero-link-primary">Live Dashboard ↗</a>
       <a href="https://marianunez-data-imdb-sentiment-classifier.hf.space/docs" target="_blank" class="hero-link-btn hero-link-ghost">REST API ↗</a>
       <a href="https://github.com/marianunez-data/nlp-sentiment-intelligence" target="_blank" class="hero-link-btn hero-link-ghost">GitHub ↗</a>
     </div>
+
+    <!-- Executive Technical Report Banner -->
+    <a href="business_report.html" style="display:block;margin-top:2rem;border:1px solid rgba(200,169,110,.25);background:rgba(200,169,110,.06);padding:1.4rem 2rem;text-decoration:none;transition:all .3s;opacity:0;animation:fadeUp .9s ease .6s both" onmouseover="this.style.borderColor='rgba(200,169,110,.5)';this.style.background='rgba(200,169,110,.1)'" onmouseout="this.style.borderColor='rgba(200,169,110,.25)';this.style.background='rgba(200,169,110,.06)'">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span style="font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);font-weight:500">Executive Technical Report</span>
+      </div>
+      <p style="font-size:.82rem;color:rgba(247,244,238,.55);line-height:1.7;margin:0;font-weight:300">Model comparison, SHAP explainability, confidence routing, cost analysis, data quality validation, and production monitoring.</p>
+      <span style="display:inline-flex;align-items:center;gap:.5rem;margin-top:.7rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm);transition:gap .2s">View Report <svg width="12" height="8" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 5h12M8 1l5 4-5 4"/></svg></span>
+    </a>
   </div>
   <div class="kpi-strip">
     <div class="kpi-strip-item"><span class="ksi-val g">0.8948</span><span class="ksi-label">Test F1</span><span class="ksi-sub">LR Tuned Calibrated</span></div>
