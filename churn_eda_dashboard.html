@@ -38,22 +38,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 header{
   background:var(--white);
   border-bottom:1px solid var(--border);
-  padding:40px 56px 32px;
+  padding:28px 56px 20px;
 }
 .header-eyebrow{
   font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--blue);font-weight:600;margin-bottom:12px;
+  color:var(--blue);font-weight:600;margin-bottom:8px;
   display:flex;align-items:center;gap:8px;
 }
 .header-eyebrow::before{content:'';width:20px;height:2px;background:var(--blue);}
 h1{
   font-family:'Fraunces',serif;
-  font-size:clamp(26px,3.5vw,44px);
+  font-size:clamp(22px,2.8vw,36px);
   font-weight:900;color:var(--ink);
   line-height:1.08;letter-spacing:-0.5px;
   margin-bottom:10px;
 }
-.header-sub{font-size:16px;color:var(--sub);font-weight:400;max-width:600px;margin-bottom:24px;}
+.header-sub{font-size:15px;color:var(--sub);font-weight:400;max-width:600px;margin-bottom:16px;}
 .header-tags{display:flex;gap:8px;flex-wrap:wrap;}
 .tag{
   background:var(--bg);border:1px solid var(--border);
@@ -65,26 +65,26 @@ h1{
 /* ─── STORY BANNER ─── */
 .story-banner{
   background:linear-gradient(135deg,#1E3A5F 0%,#0F172A 100%);
-  color:#fff;padding:32px 56px;
+  color:#fff;padding:24px 56px;
   display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;
 }
-.story-text h2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:8px;}
+.story-text h2{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:8px;}
 .story-text p{font-size:14px;color:#94A3B8;max-width:700px;line-height:1.7;}
 .story-number{text-align:center;}
-.story-big{font-family:'Fraunces',serif;font-size:52px;font-weight:900;color:#E53E3E;line-height:1;}
+.story-big{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:#E53E3E;line-height:1;}
 .story-cap{font-size:12px;color:#94A3B8;margin-top:4px;text-align:center;}
 
 /* ─── MAIN ─── */
-main{padding:40px 56px 80px;max-width:1500px;margin:0 auto;}
+main{padding:32px 56px 60px;max-width:1500px;margin:0 auto;}
 
 /* ─── SECTION HEADERS ─── */
-.sec-header{margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.sec-header{margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--border);}
 .sec-number{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:4px;}
-.sec-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);}
+.sec-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ink);}
 .sec-desc{font-size:13px;color:var(--sub);margin-top:4px;}
 
 /* ─── KPI STRIP ─── */
-.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:40px;}
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:28px;}
 .kpi{
   background:var(--white);border:1px solid var(--border);
   border-radius:12px;padding:20px;
@@ -600,7 +600,7 @@ new Chart(document.getElementById('cTenure'),{type:'line',
 // Internet
 new Chart(document.getElementById('cInternet'),{type:'bar',
   data:{labels:['Fiber Optic','DSL'],
-    datasets:[{data:[0.419,0.190],backgroundColor:['#FEE2E2','#DBEAFE'],borderColor:['#EF4444','#3B82F6'],borderWidth:2,borderRadius:10}]},
+    datasets:[{data:[0.419,0.190],backgroundColor:['#FEE2E2','#DBEAFE'],borderColor:['#EF4444','#3B82F6'],borderWidth:2,borderRadius:10,maxBarThickness:80}]},
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:noL,...tip('Churn rate')},
     scales:{x:{grid:{display:false},ticks:{color:'#8A97A8'}},y:{grid:gridC,ticks:{color:'#8A97A8',callback:v=>(v*100).toFixed(0)+'%'},beginAtZero:true,max:0.55}}}
 });
